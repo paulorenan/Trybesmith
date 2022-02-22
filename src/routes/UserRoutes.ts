@@ -5,4 +5,4 @@ const userRouter = Router();
 
 userRouter.post('/', UserController.cadastrarUsuario);
 
-export default { userRouter };
+export default userRouter;
