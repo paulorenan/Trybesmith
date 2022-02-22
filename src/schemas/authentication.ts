@@ -21,7 +21,13 @@ const verifyToken = (token: string): UserId | null => {
   }
 };
 
+const pegarIdToken = (token: string): number => {
+  const decoded: UserId = jwt.verify(token, secret) as UserId;
+  return decoded.id;
+};
+
 export {
   createToken,
   verifyToken,
+  pegarIdToken,
 };

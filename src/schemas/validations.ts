@@ -80,6 +80,22 @@ const validarAmount = (amount: string): Retornos => {
   return { status: 200, message: 'Amount is valid' };
 };
 
+const validarProducts = (products: Product[]): Retornos => {
+  if (!products) {
+    return { status: 400, error: 'Products is required' };
+  }
+  if (typeof products !== 'object') {
+    return { status: 422, error: 'Products must be an array of numbers' };
+  }
+  if (products.length <= 0) {
+    return { status: 422, error: 'Products can\'t be empty' };
+  }
+  if (products.some((product) => typeof product !== 'number')) {
+    return { status: 422, error: 'Products must be an array of numbers' };
+  }
+  return { status: 200, message: 'Products is valid' };
+};  
+
 const validarUsuario = (user: User): Retornos => {
   const nome = validarNome(user.username);
   const classe = validarClasse(user.classe);
@@ -128,4 +144,5 @@ export {
   validarUsuario,
   validarNomeESenha,
   validarAmountENome,
+  validarProducts,
 };
