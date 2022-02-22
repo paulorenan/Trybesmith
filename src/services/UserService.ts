@@ -1,15 +1,11 @@
 import UserModel from '../models/UserModel';
 import { User } from '../interface/User';
-import { Retornos } from '../interface/Retornos';
-import { validarUsuario } from '../schemas/validations';
+import { UserCreate } from '../interface/UserCreate';
 
-const cadastrarUsuario = async (user: User): Promise<Retornos> => {
-  const result = validarUsuario(user);
-  if (result.status !== 200) {
-    return result;
-  }
-  await UserModel.cadastrarUsuario(user);
-  return { message: 'Usuário cadastrado com sucesso!', status: 200 };
+const cadastrarUsuario = async (user: User): Promise<UserCreate> => {
+  const [resulta] = await UserModel.cadastrarUsuario(user);
+  const { insertId: id } = resulta;
+  return { message: 'Usuário cadastrado com sucesso!', status: 200, id };
 };
 
 export default {
