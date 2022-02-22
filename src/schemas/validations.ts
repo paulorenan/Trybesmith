@@ -54,6 +54,19 @@ const validarSenha = (senha: string): Retornos => {
   return { status: 200, message: 'Password is valid' };
 };
 
+const validarProducName = (nome: string): Retornos => {
+  if (!nome) {
+    return { status: 400, error: 'Name is required' };
+  }
+  if (typeof nome !== 'string') {
+    return { status: 422, error: 'Name must be a string' };
+  }
+  if (nome.length <= 2) {
+    return { status: 422, error: 'Name must be longer than 2 characters' };
+  }
+  return { status: 200, message: 'Name is valid' };
+};
+
 const validarAmount = (amount: string): Retornos => {
   if (!amount) {
     return { status: 400, error: 'Amount is required' };
@@ -100,7 +113,7 @@ const validarNomeESenha = (user: { username: string, password: string }): Retorn
 };
 
 const validarAmountENome = (product: Product): Retornos => {
-  const nomeValidacao = validarNome(product.name);
+  const nomeValidacao = validarProducName(product.name);
   const amountValidacao = validarAmount(product.amount);
   if (nomeValidacao.status !== 200) {
     return nomeValidacao;
