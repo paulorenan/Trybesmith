@@ -1,5 +1,6 @@
 import { Retornos } from '../interface/Retornos';
 import { User } from '../interface/User';
+import { Product } from '../interface/Product';
 
 const validarNome = (nome: string): Retornos => {
   if (!nome) {
@@ -53,6 +54,19 @@ const validarSenha = (senha: string): Retornos => {
   return { status: 200, message: 'Password is valid' };
 };
 
+const validarAmount = (amount: string): Retornos => {
+  if (!amount) {
+    return { status: 400, error: 'Amount is required' };
+  }
+  if (typeof amount !== 'string') {
+    return { status: 422, error: 'Amount must be a string' };
+  }
+  if (amount.length <= 2) {
+    return { status: 422, error: 'Amount must be longer than 2 characters' };
+  }
+  return { status: 200, message: 'Amount is valid' };
+};
+
 const validarUsuario = (user: User): Retornos => {
   const nome = validarNome(user.username);
   const classe = validarClasse(user.classe);
@@ -85,7 +99,20 @@ const validarNomeESenha = (user: { username: string, password: string }): Retorn
   return { status: 200, message: 'User is valid' };
 };
 
+const validarAmountENome = (product: Product): Retornos => {
+  const nomeValidacao = validarNome(product.name);
+  const amountValidacao = validarAmount(product.amount);
+  if (nomeValidacao.status !== 200) {
+    return nomeValidacao;
+  }
+  if (amountValidacao.status !== 200) {
+    return amountValidacao;
+  }
+  return { status: 200, message: 'Product is valid' };
+};
+
 export {
   validarUsuario,
   validarNomeESenha,
+  validarAmountENome,
 };
