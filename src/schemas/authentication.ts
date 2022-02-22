@@ -12,7 +12,16 @@ const createToken = (user: UserId): string => {
   return token;
 };
 
+const verifyToken = (token: string): UserId | null => {
+  try {
+    const decoded: UserId = jwt.verify(token, secret) as UserId;
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+};
+
 export {
   createToken,
-  secret,
+  verifyToken,
 };
