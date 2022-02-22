@@ -73,7 +73,19 @@ const validarUsuario = (user: User): Retornos => {
   return { status: 200, message: 'User is valid' };
 };
 
+const validarNomeESenha = (user: { username: string, password: string }): Retornos => {
+  const nomeValidacao = validarNome(user.username);
+  const senhaValidacao = validarSenha(user.password);
+  if (nomeValidacao.status !== 200) {
+    return nomeValidacao;
+  }
+  if (senhaValidacao.status !== 200) {
+    return senhaValidacao;
+  }
+  return { status: 200, message: 'User is valid' };
+};
+
 export {
   validarUsuario,
-  validarNome,
+  validarNomeESenha,
 };

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { UserId } from '../interface/UserId';
+import { UserId } from '../interface/User';
 
 const secret = 'secret';
 

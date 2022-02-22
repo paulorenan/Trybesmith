@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { UserId } from '../interface/UserId';
+import { UserId, UserCreate } from '../interface/User';
 import { Retornos } from '../interface/Retornos';
-import { UserCreate } from '../interface/UserCreate';
 import UserService from '../services/UserService';
 import { validarUsuario } from '../schemas/validations';
 import { createToken } from '../schemas/authentication';
