@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from './connection';
-import { Product } from '../interface/Product';
+import { Product, ProductId } from '../interface/Product';
 
 const cadastrarProduto = async (product: Product): Promise<number> => {
   const { name, amount } = product;
@@ -11,6 +11,13 @@ const cadastrarProduto = async (product: Product): Promise<number> => {
   return id;
 };
 
+const listarProdutos = async (): Promise<ProductId[]> => {
+  const q = 'SELECT * FROM Trybesmith.Products';
+  const [result] = await connection.execute(q);
+  return result as ProductId[];
+};
+
 export default {
   cadastrarProduto,
+  listarProdutos,
 };

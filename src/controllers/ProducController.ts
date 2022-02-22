@@ -20,11 +20,26 @@ const cadastrarProduto = async (req: Request, res: Response): Promise<void> => {
     res.status(validar.status).json({ error: validar.error });
     return;
   }
-  const id = await ProductService.cadastrarProduto(product);
-  const item = { id, name: product.name, amount: product.amount };
+  const pro = await ProductService.cadastrarProduto(product);
+  const item = { id: pro.id, name: product.name, amount: product.amount };
   res.status(201).json({ item });
+};
+
+const listarProdutos = async (req: Request, res: Response): Promise<void> => {
+  const token = req.headers.authorization;
+  if (!token) {
+    res.status(401).json({ error: 'Token not found' });
+    return;
+  }
+  if (verifyToken(token) === null) {
+    res.status(401).json({ error: 'Invalid token' });
+    return;
+  }
+  const products = await ProductService.listarProdutos();
+  res.status(200).json(products);
 };
 
 export default {
   cadastrarProduto,
+  listarProdutos,
 };
