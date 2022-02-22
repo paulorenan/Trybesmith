@@ -3,13 +3,16 @@ import { UserId } from '../interface/UserId';
 
 const secret = 'secret';
 
+const jwtConfig = {
+  expiresIn: '7d',
+};
+
 const createToken = (user: UserId): string => {
-  const token = jwt.sign({ id: user.id, username: user.username }, secret, {
-    expiresIn: '1d',
-  });
+  const token: string = jwt.sign({ id: user.id, username: user.username }, secret, jwtConfig);
   return token;
 };
 
-export default {
+export {
   createToken,
+  secret,
 };

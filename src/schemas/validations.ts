@@ -28,7 +28,7 @@ const validarClasse = (classe: string): Retornos => {
 };
 
 const validarLevel = (level: number): Retornos => {
-  if (!level) {
+  if (level === undefined) {
     return { status: 400, error: 'Level is required' };
   }
   if (typeof level !== 'number') {

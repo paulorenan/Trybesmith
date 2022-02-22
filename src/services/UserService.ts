@@ -3,9 +3,8 @@ import { User } from '../interface/User';
 import { UserCreate } from '../interface/UserCreate';
 
 const cadastrarUsuario = async (user: User): Promise<UserCreate> => {
-  const [resulta] = await UserModel.cadastrarUsuario(user);
-  const { insertId: id } = resulta;
-  return { message: 'Usuário cadastrado com sucesso!', status: 200, id };
+  const id = await UserModel.cadastrarUsuario(user);
+  return { message: 'Usuário cadastrado com sucesso!', status: 201, id };
 };
 
 export default {
