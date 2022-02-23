@@ -601,7 +601,7 @@ describe("6 - Crie um endpoint para consultar um pedido", () => {
   });
 });
 
-describe.only("7 - Crie um endpoint para listar todos os pedidos", () => {
+describe("7 - Crie um endpoint para listar todos os pedidos", () => {
   let token: string;
 
   beforeEach(async () => {
