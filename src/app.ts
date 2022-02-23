@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'; // teste
 import userRouter from './routes/UserRoutes';
 import productRouter from './routes/ProductRoutes';
 import orderRouter from './routes/OrderRoutes';
