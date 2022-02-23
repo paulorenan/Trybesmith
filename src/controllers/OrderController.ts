@@ -3,6 +3,7 @@ import OrderService from '../services/OrderService';
 import { verifyToken, pegarIdToken } from '../schemas/authentication';
 import { Retornos } from '../interface/Retornos';
 import { validarProducts } from '../schemas/validations';
+import OrderModel from '../models/OrderModel';
 
 const cadastrarPedido = async (req: Request, res: Response): Promise<void> => {
   if (!req.headers.authorization) {
@@ -25,6 +26,20 @@ const cadastrarPedido = async (req: Request, res: Response): Promise<void> => {
   res.status(result.status).json({ order });
 };
 
+const pegarTodosPedidos = async (req: Request, res: Response): Promise<void> => {
+  if (!req.headers.authorization) {
+    res.status(401).json({ error: 'Token not found' });
+    return;
+  }
+  if (verifyToken(req.headers.authorization) === null) {
+    res.status(401).json({ error: 'Invalid token' });
+    return;
+  }
+  const result = await OrderModel.pegarTodosPedidos();
+  res.status(200).json(result);
+};
+
 export default {
   cadastrarPedido,
+  pegarTodosPedidos,
 };
